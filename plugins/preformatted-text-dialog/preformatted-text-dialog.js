@@ -41,7 +41,7 @@
             }
             else 
             {      
-                var dialogContent = "<textarea placeholder=\"coding now....\" style=\"display:none;\">" + selection + "</textarea>";
+                var dialogContent = "<textarea placeholder=\"" + dialogLang.placeholder + "\" style=\"display:none;\">" + selection + "</textarea>";
 
                 dialog = this.createDialog({
                     name   : dialogName,
@@ -72,8 +72,14 @@
                             {
                                 codeTexts[i] = "    " + codeTexts[i];
                             }
+                            
+                            codeTexts = codeTexts.join("\n");
+                            
+                            if (cursor.ch !== 0) {
+                                codeTexts = "\r\n\r\n" + codeTexts;
+                            }
 
-                            cm.replaceSelection(codeTexts.join("\n"));
+                            cm.replaceSelection(codeTexts);
 
                             this.hide().lockScreen(false).hideMask();
 
@@ -132,7 +138,6 @@
 			} 
 			else 
 			{
-
 				cmEditor.setValue(cm.getSelection());
 			}
 		};
